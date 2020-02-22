@@ -10,6 +10,23 @@ import java.math.BigDecimal;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    public void atualizarObjetoGerenciado() {
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite 2ª Geração");
+        entityManager.getTransaction().commit();
+
+        // Limpa o entityManager para o find executar a consulta ao banco de dados,
+        // senão ele irá usar o objeto que está em memoria
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produtoVerificacao);
+        Assert.assertEquals("Kindle Paperwhite 2ª Geração", produtoVerificacao.getNome());
+    }
+
+    @Test
     public void atualizarObjeto() {
         Produto produto = new Produto();
         produto.setId(1);
