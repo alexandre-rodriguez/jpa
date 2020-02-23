@@ -61,4 +61,5 @@ public class RelacionamentosManyToOneTest extends EntityManagerTest {
         Assert.assertNotNull(itemPedidoVerificacao.getPedido());
         Assert.assertNotNull(itemPedidoVerificacao.getProduto());
     }
+
 }
