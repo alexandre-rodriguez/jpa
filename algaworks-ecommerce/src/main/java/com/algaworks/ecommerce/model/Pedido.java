@@ -21,7 +21,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
@@ -42,7 +42,7 @@ public class Pedido {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
     private List<ItemPedido> itens;
 
     @OneToOne(mappedBy = "pedido")
