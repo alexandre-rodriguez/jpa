@@ -42,7 +42,7 @@ public class Pedido {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @OneToMany
+    @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
     @OneToOne(mappedBy = "pedido")
