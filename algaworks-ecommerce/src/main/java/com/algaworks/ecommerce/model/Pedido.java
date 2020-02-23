@@ -33,4 +33,7 @@ public class Pedido {
 
     private BigDecimal total;
 
+    @Embedded
+    private EnderecoEntregaPedido enderecoEntrega;
+
 }
