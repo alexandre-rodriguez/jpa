@@ -10,7 +10,6 @@ public class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     public void inserirRegistro() {
         Cliente cliente = new Cliente();
-        cliente.setId(3);
         cliente.setNome("Alexandre Rodriguez");
 
         entityManager.getTransaction().begin();
@@ -19,13 +18,13 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
         entityManager.clear();
 
-        Cliente clienteVerificacao = entityManager.find(Cliente.class, 3);
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assert.assertNotNull(clienteVerificacao);
     }
 
     @Test
     public void buscarPorIdentificador() {
-        Cliente cliente = entityManager.find(Cliente.class, 4);
+        Cliente cliente = entityManager.find(Cliente.class, 101);
         Assert.assertEquals("José da Silva", cliente.getNome());
     }
 
