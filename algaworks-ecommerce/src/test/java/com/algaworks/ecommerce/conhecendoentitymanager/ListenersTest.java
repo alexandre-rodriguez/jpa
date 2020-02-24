@@ -8,12 +8,16 @@ import com.algaworks.ecommerce.model.StatusPedido;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
-public class CallbacksTest extends EntityManagerTest {
+public class ListenersTest extends EntityManagerTest {
 
     @Test
-    public void acionarCallbacks() {
+    public void carregarEntidades() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        Pedido pedido = entityManager.find(Pedido.class, 1);
+    }
+
+    @Test
+    public void acionarListeners() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
 
         Pedido pedido = new Pedido();
