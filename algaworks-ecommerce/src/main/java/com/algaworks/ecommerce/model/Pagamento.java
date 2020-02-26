@@ -7,10 +7,10 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-//@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
-//@Table(name = "pagamento")
+@Table(name = "pagamento")
 public abstract class Pagamento extends EntidadeBaseInteger {
 
     @MapsId
