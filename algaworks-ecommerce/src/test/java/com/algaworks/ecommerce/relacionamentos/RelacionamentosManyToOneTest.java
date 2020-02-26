@@ -49,8 +49,9 @@ public class RelacionamentosManyToOneTest extends EntityManagerTest {
         entityManager.persist(pedido);
 
         ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setPedidoId(pedido.getId());
-        itemPedido.setProdutoId(produto.getId());
+        //itemPedido.setPedidoId(pedido.getId());
+        //itemPedido.setProdutoId(produto.getId());
+        itemPedido.setId(new ItemPedidoId(pedido.getId(), produto.getId()));
         itemPedido.setPrecoProduto(produto.getPreco());
         itemPedido.setQuantidade(BigInteger.ONE);
         itemPedido.setPedido(pedido);
