@@ -9,8 +9,9 @@ import java.math.BigInteger;
 
 @Getter
 @Setter
+@DiscriminatorValue("cartao")
 @Entity
-@Table(name = "pagamento_cartao")
+//@Table(name = "@DiscriminatorValue("PagamentoCartao")")
 public class PagamentoCartao extends Pagamento {
 
     @Column(name = "numero_cartao")
