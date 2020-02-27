@@ -1,4 +1,4 @@
-package com.algaworks.ecommerce.mapeandobasico;
+package com.algaworks.ecommerce.mapeamentobasico;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;

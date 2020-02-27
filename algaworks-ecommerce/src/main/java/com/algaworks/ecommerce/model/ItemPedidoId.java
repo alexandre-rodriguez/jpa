@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.model;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Getter
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class ItemPedidoId implements Serializable {
 
     @EqualsAndHashCode.Include

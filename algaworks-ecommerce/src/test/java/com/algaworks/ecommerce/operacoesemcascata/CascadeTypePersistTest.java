@@ -54,7 +54,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         itemPedido.setId(new ItemPedidoId());
         itemPedido.setPedido(pedido);
         itemPedido.setProduto(produto);
-        itemPedido.setQuantidade(BigInteger.ONE);
+        itemPedido.setQuantidade(1);
         itemPedido.setPrecoProduto(produto.getPreco());
 
         pedido.setItens(Arrays.asList(itemPedido)); // CascadeType.PERSIST
@@ -86,7 +86,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         itemPedido.setId(new ItemPedidoId());
         itemPedido.setPedido(pedido); // Não é necessário CascadeType.PERSIST porque possui @MapsId
         itemPedido.setProduto(produto);
-        itemPedido.setQuantidade(BigInteger.ONE);
+        itemPedido.setQuantidade(1);
         itemPedido.setPrecoProduto(produto.getPreco());
 
         entityManager.getTransaction().begin();

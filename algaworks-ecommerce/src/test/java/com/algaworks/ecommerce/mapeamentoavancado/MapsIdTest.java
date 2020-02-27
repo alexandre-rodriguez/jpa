@@ -47,7 +47,7 @@ public class MapsIdTest extends EntityManagerTest {
         itemPedido.setPedido(pedido);
         itemPedido.setProduto(produto);
         itemPedido.setPrecoProduto(produto.getPreco());
-        itemPedido.setQuantidade(BigInteger.ONE);
+        itemPedido.setQuantidade(1);
 
         entityManager.getTransaction().begin();
         entityManager.persist(pedido);
