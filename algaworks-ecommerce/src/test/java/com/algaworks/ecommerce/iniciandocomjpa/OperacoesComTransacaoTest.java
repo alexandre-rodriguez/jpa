@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
@@ -31,6 +32,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("O processador mais rápido.");
         produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(produtoPersist);
@@ -48,6 +50,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O melhor da categoria.");
         produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         produtoMerge = entityManager.merge(produtoMerge);
@@ -69,6 +72,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Microfone Rode Videmic");
         produto.setDescricao("A melhor qualidade de som.");
         produto.setPreco(new BigDecimal(1000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         Produto produtoSalvo = entityManager.merge(produto);
@@ -140,6 +144,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Câmera Canon");
         produto.setDescricao("A melhor definição para suas fotos.");
         produto.setPreco(new BigDecimal(5000));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(produto);

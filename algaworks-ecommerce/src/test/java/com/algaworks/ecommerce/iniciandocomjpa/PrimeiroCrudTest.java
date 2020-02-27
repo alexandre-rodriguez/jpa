@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.iniciandocomjpa;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.SexoCliente;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,6 +12,8 @@ public class PrimeiroCrudTest extends EntityManagerTest {
     public void inserirRegistro() {
         Cliente cliente = new Cliente();
         cliente.setNome("Alexandre Rodriguez");
+        cliente.setCpf("444.444.444-44");
+        cliente.setSexo(SexoCliente.MASCULINO);
 
         entityManager.getTransaction().begin();
         entityManager.persist(cliente);
@@ -34,6 +37,9 @@ public class PrimeiroCrudTest extends EntityManagerTest {
 
         cliente.setId(1);
         cliente.setNome("Fernando Medeiros Silva");
+        cliente.setCpf("123.456.789-01");
+        cliente.setSexo(SexoCliente.MASCULINO);
+
 
         entityManager.getTransaction().begin();
         entityManager.merge(cliente);

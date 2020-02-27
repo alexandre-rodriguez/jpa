@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 public class PagamentoBoleto extends Pagamento {
 
-    @Column(name = "codigo_barras", length = 100, nullable = false) // varchar(100) not null
+    @Column(name = "codigo_barras", length = 100) // varchar(100)
     private String codigoBarras;
 
 }
