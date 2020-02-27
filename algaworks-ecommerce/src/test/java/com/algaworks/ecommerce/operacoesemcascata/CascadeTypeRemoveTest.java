@@ -11,6 +11,22 @@ import java.util.Arrays;
 
 public class CascadeTypeRemoveTest extends EntityManagerTest {
 
+    // @Test
+    public void removerItensOrfaos() {
+        Pedido pedido = entityManager.find(Pedido.class, 1);
+
+        Assert.assertFalse(pedido.getItens().isEmpty());
+
+        entityManager.getTransaction().begin();
+        pedido.getItens().clear();
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+        Assert.assertTrue(pedidoVerificacao.getItens().isEmpty());
+    }
+
     @Test
     public void removerRelacaoProdutoCategoria() {
         Produto produto = entityManager.find(Produto.class, 1);
