@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import lombok.Cleanup;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,14 +19,16 @@ import java.util.Map;
         indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false)})
 public class Cliente extends EntidadeBaseInteger {
 
+    @Column(length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
+    @Column(length = 14, nullable = false) // varchar(14) not null
     private String cpf;
 
     @Transient
     private String primeiroNome;
 
-    @Column(table = "cliente_detalhe")
+    @Column(table = "cliente_detalhe", length = 30, nullable = false)  // varchar(30) not null
     @Enumerated(EnumType.STRING)
     private SexoCliente sexo;
 

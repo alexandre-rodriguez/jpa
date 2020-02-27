@@ -19,19 +19,20 @@ import java.util.List;
         uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) },
         indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false) })
 public class Produto extends EntidadeBaseInteger {
-    @Column(name = "data_criacao", updatable = false)
+
+    @Column(name = "data_criacao", updatable = false, nullable = false) // datetime(6) not null
     private LocalDateTime dataCriacao;
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
-    @Column(name = "nome", length = 100, nullable = false)
+    @Column(name = "nome", length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
     @Column(columnDefinition = "varchar(275) not null default 'descricao'")
     private String descricao;
 
-    @Column(precision = 10, scale = 2) // Parte inteira 8 digitos e Parte decimal 2 digitos
+    @Column(precision = 10, scale = 2) // Parte inteira 8 digitos e Parte decimal 2 digitos -- decimal(10,2)
     private BigDecimal preco;
 
     @ManyToMany
@@ -46,7 +47,7 @@ public class Produto extends EntidadeBaseInteger {
     @ElementCollection
     @CollectionTable(name = "produto_tag",
             joinColumns = @JoinColumn(name = "produto_id"))
-    @Column(name = "tag")
+    @Column(name = "tag", length = 50, nullable = false) // varchar(50) not null
     private List<String> tags;
 
     @ElementCollection

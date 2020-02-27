@@ -13,7 +13,7 @@ import java.math.BigInteger;
 @Entity
 public class PagamentoCartao extends Pagamento {
 
-    @Column(name = "numero_cartao")
+    @Column(name = "numero_cartao", length = 50, nullable = false) // varchar(50) not null
     private String numeroCartao;
 
 }

@@ -28,9 +28,10 @@ public class ItemPedido {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @Column(name = "preco_produto")
+    @Column(name = "preco_produto", nullable = false) // decimal(19, 2) not null
     private BigDecimal precoProduto;
 
+    @Column(nullable = false) // integer not null
     private BigInteger quantidade;
 
 }

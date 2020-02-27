@@ -22,8 +22,8 @@ public class Pedido extends EntidadeBaseInteger {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @Column(name = "data_criacao", updatable = false)
-    private LocalDateTime dataCriacao;
+    @Column(name = "data_criacao", updatable = false, nullable = false)
+    private LocalDateTime dataCriacao; // datetime(6) not null
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
@@ -34,11 +34,11 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false) // varchar(30) not null
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @Column(precision = 19, scale = 2, nullable = false)
+    @Column(nullable = false) // decimal(19,2) not null
     private BigDecimal total;
 
     @Embedded
