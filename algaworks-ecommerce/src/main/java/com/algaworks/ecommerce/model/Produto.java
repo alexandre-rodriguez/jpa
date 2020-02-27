@@ -16,8 +16,8 @@ import java.util.List;
 @EntityListeners({GenericoListener.class})
 @Entity
 @Table(name = "produto",
-        uniqueConstraints = {@UniqueConstraint(name = "unq_nome", columnNames = { "nome"})},
-        indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false)})
+        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) },
+        indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false) })
 public class Produto extends EntidadeBaseInteger {
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
@@ -25,10 +25,13 @@ public class Produto extends EntidadeBaseInteger {
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
+    @Column(columnDefinition = "varchar(275) not null default 'descricao'")
     private String descricao;
 
+    @Column(precision = 10, scale = 2) // Parte inteira 8 digitos e Parte decimal 2 digitos
     private BigDecimal preco;
 
     @ManyToMany
@@ -45,7 +48,6 @@ public class Produto extends EntidadeBaseInteger {
             joinColumns = @JoinColumn(name = "produto_id"))
     @Column(name = "tag")
     private List<String> tags;
-
 
     @ElementCollection
     @CollectionTable(name = "produto_atributo",
