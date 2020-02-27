@@ -11,7 +11,6 @@ insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 1, s
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 
-insert into pagamento(pedido_id, status, tipo_pagamento) values(2, 'PROCESSANDO', 'cartao');
-insert into pagamento_cartao(pedido_id, numero_cartao) values (2, '123');
+insert into pagamento(pedido_id, status, tipo_pagamento, numero_cartao) values(2, 'PROCESSANDO', 'cartao', '123');
 
 insert into categoria (id, nome) values (1, 'Eletrônicos');
