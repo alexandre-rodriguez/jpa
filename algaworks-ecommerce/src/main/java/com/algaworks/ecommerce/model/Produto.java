@@ -29,7 +29,7 @@ public class Produto extends EntidadeBaseInteger {
     @Column(name = "nome", length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
-    @Column(columnDefinition = "varchar(275) not null default 'descricao'")
+    @Lob // descricao longtext
     private String descricao;
 
     @Column(precision = 10, scale = 2) // Parte inteira 8 digitos e Parte decimal 2 digitos -- decimal(10,2)
