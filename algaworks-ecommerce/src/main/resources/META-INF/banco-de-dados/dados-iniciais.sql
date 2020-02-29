@@ -10,10 +10,11 @@ insert into cliente_detalhe(cliente_id, sexo) values (2, 'MASCULINO');
 insert into cliente (id, nome, cpf) values (101, 'José da Silva', '333.333.333-33');
 insert into cliente_detalhe(cliente_id, sexo) values (101, 'MASCULINO');
 
-insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, sysdate(), 998.0, 'AGUARDANDO');
+insert into pedido (id, cliente_id, data_criacao, total, status) values (1, 1, sysdate(), 2398.0, 'AGUARDANDO');
 insert into pedido (id, cliente_id, data_criacao, total, status) values (2, 1, sysdate(), 499.0, 'AGUARDANDO');
 
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 1, 499, 2);
+insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (1, 3, 1400, 1);
 insert into item_pedido (pedido_id, produto_id, preco_produto, quantidade) values (2, 1, 499, 1);
 
 insert into pagamento(pedido_id, status, tipo_pagamento, numero_cartao, codigo_barras) values(2, 'PROCESSANDO', 'cartao', '123', '');
