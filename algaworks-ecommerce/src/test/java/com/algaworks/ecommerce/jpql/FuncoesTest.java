@@ -6,11 +6,28 @@ import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.TimeZone;
 
-public class FuncoesStringsTest  extends EntityManagerTest {
+public class FuncoesTest extends EntityManagerTest {
 
     @Test
-    public void aplicarFuncoes() {
+    public void aplicarFuncaoData() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        // String jpql = "select current_date, current_time, current_timestamp from Pedido p";
+        //String jpql = "select year(p.dataCriacao), month(p.dataCriacao), day(p.dataCriacao) from Pedido p";
+        String jpql = "select hour(p.dataCriacao), minute(p.dataCriacao), second(p.dataCriacao) from Pedido p";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + " | " + arr[1] + " | " + arr[2]));
+    }
+
+    @Test
+    public void aplicarFuncaoString() {
         // concat, length, locate, substring, lower, upper, trim
 
         //String jpql = "select c.nome, concat('Categoria: ', c.nome) from Categoria c";
