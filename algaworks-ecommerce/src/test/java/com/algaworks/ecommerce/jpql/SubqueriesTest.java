@@ -14,6 +14,19 @@ import java.util.TimeZone;
 public class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    public void perquisarComSubqueryExercicio() {
+        String jpql = "select c from Cliente c where " +
+                "(select count(p.cliente) from Pedido p where p.cliente = c) >= 2";
+
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+
+        List<Cliente> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(c -> System.out.println("ID: " + c.getId()));
+    }
+
+    @Test
     public void pesquisarComINExercicio() {
         String jpql = "select p from Pedido p where p in " +
                 "(select i2.pedido from ItemPedido i2 " +
