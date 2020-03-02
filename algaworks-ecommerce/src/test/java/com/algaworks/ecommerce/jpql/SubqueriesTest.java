@@ -14,6 +14,20 @@ import java.util.TimeZone;
 public class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    public void perquisarComExistsExercicio() {
+        String jpql = "select p from Produto p " +
+                " where exists " +
+                " (select 1 from ItemPedido where produto = p and precoProduto <> p.preco)";
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
+    @Test
     public void perquisarComSubqueryExercicio() {
         String jpql = "select c from Cliente c where " +
                 "(select count(p.cliente) from Pedido p where p.cliente = c) >= 2";
