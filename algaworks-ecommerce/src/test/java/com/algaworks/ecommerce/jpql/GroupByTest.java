@@ -11,6 +11,23 @@ import java.util.TimeZone;
 public class GroupByTest extends EntityManagerTest {
 
     @Test
+    public void condicionarAgrupamentoComHaving() {
+        // Total de vendas dentre as categorias que mais vendem
+        String jpql = "select cat.nome, sum(ip.precoProduto * ip.quantidade) from ItemPedido ip " +
+                "join ip.produto pro join pro.categorias cat " +
+                "group by cat.id " +
+                "having sum(ip.precoProduto * ip.quantidade) > 2000";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+
+    }
+
+    @Test
     public void agruparEFiltrarResultado() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
