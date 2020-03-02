@@ -14,6 +14,21 @@ import java.util.TimeZone;
 public class SubqueriesTest extends EntityManagerTest {
 
     @Test
+    public void pesquisarComAllExercicio() {
+        // Todos os produtos que sempre foram vendidos pelo mesmo preço.
+        String jpql = "select distinct ip.produto from ItemPedido ip where " +
+                " ip.precoProduto = ALL " +
+                " (select precoProduto from ItemPedido where produto = ip.produto and pedido <> ip.pedido)";
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
+    @Test
     public void perquisarComAny() {
         // Podemos usar o ANY e o SOME
 
