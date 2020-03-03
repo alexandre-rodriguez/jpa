@@ -12,6 +12,30 @@ import java.util.List;
 public class GroupByCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void agruparResultado03Exercicio() {
+        // Total de vendas por cliente
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root =  criteriaQuery.from(Pedido.class);
+        Join<Pedido, Cliente> joinCliente = root.join(Pedido_.cliente);
+
+        criteriaQuery.multiselect(
+                joinCliente.get(Cliente_.nome),
+                criteriaBuilder.sum(root.get(Pedido_.total))
+        );
+
+        criteriaQuery.groupBy(joinCliente.get(Cliente_.id));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+    }
+
+    @Test
     public void agruparResultado02() {
         // Total de vendas por categoria.
 
