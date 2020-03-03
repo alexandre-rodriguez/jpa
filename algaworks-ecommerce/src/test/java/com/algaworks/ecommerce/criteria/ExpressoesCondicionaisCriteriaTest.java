@@ -3,6 +3,8 @@ package com.algaworks.ecommerce.criteria;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Cliente_;
+import com.algaworks.ecommerce.model.Produto;
+import com.algaworks.ecommerce.model.Produto_;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,6 +15,40 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
+
+    @Test
+    public void usarIsEmpty() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
+
+        criteriaQuery.select(root);
+
+        criteriaQuery.where(criteriaBuilder.isEmpty(root.get(Produto_.categorias)));
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarIsNull() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
+
+        criteriaQuery.select(root);
+
+        //criteriaQuery.where(root.get(Produto_.foto).isNull());
+        // OU
+        criteriaQuery.where(criteriaBuilder.isNull(root.get(Produto_.foto)));
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
 
     @Test
     public void usarExpressaoCondicionalLike() {
