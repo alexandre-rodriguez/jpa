@@ -16,6 +16,32 @@ import java.util.TimeZone;
 public class FuncoesCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void aplicarFuncaoNativas() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+        criteriaQuery.multiselect(
+                root.get(Pedido_.id),
+                criteriaBuilder.function("dayname", String.class, root.get(Pedido_.dataCriacao))
+        );
+
+        criteriaQuery.where(
+                criteriaBuilder.isTrue(
+                    criteriaBuilder.function("acima_media_faturamento", Boolean.class, root.get(Pedido_.total))));
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(arr -> System.out.println(
+                arr[0]
+                        + ", dayname: " + arr[1]
+        ));
+    }
+
+    @Test
     public void aplicarFuncaoColecao() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
