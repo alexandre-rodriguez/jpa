@@ -15,7 +15,19 @@ import java.util.List;
 @Setter
 @SqlResultSetMappings({
         @SqlResultSetMapping(name = "produto_loja.Produto",
-                entities = { @EntityResult( entityClass = Produto.class)})
+                entities = { @EntityResult( entityClass = Produto.class) }),
+        @SqlResultSetMapping(name = "ecm_produto.Produto",
+                entities = @EntityResult(entityClass = Produto.class,
+                fields = {
+                        @FieldResult(name = "id", column = "prd_id"),
+                        @FieldResult(name = "nome", column = "prd_nome"),
+                        @FieldResult(name = "descricao", column = "prd_descricao"),
+                        @FieldResult(name = "preco", column = "prd_preco"),
+                        @FieldResult(name = "foto", column = "prd_foto"),
+                        @FieldResult(name = "dataCriacao", column = "prd_data_criacao"),
+                        @FieldResult(name = "dataUltimaAtualizacao", column = "prd_data_ultima_atualizacao")
+                })
+        )
 })
 @NamedQueries({
         @NamedQuery(name = "Produto.listar", query = "select p from Produto p"),
