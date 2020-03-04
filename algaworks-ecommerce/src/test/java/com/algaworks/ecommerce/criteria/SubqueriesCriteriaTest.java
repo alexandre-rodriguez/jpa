@@ -14,6 +14,30 @@ import java.util.List;
 public class SubqueriesCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void pesquisarComSubqueryExercicio() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+
+        criteriaQuery.select(root);
+
+        Subquery<Long> subquery = criteriaQuery.subquery(Long.class);
+        Root<Pedido> subqueryRoot = subquery.from(Pedido.class);
+
+        subquery.select(criteriaBuilder.count(criteriaBuilder.literal(1)));
+        subquery.where(criteriaBuilder.equal(subqueryRoot.get(Pedido_.cliente), root));
+
+        criteriaQuery.where(criteriaBuilder.greaterThanOrEqualTo(subquery, 2L));
+
+        TypedQuery<Cliente> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Cliente> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId() + ", Nome: " + obj.getNome()));
+    }
+
+    @Test
     public void pesquisarComExists() {
         // Todos os produtos que já foram vendidos
 
