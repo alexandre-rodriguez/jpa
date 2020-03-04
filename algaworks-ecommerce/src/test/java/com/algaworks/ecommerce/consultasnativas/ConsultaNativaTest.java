@@ -3,7 +3,6 @@ package com.algaworks.ecommerce.consultasnativas;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
 import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 import org.junit.Test;
 
@@ -11,6 +10,24 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class ConsultaNativaTest extends EntityManagerTest {
+
+    @Test
+    public void usarUmaNamedNativeQuery02() {
+        Query query = entityManager.createNamedQuery("ecm_produto.listar");
+
+        List<Produto> lista = query.getResultList();
+
+        lista.forEach(obj -> System.out.println(String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
+
+    @Test
+    public void usarUmaNamedNativeQuery01() {
+        Query query = entityManager.createNamedQuery("produto_loja.listar");
+
+        List<Produto> lista = query.getResultList();
+
+        lista.forEach(obj -> System.out.println(String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
 
     @Test
     public void usarColumnResultRetornarDTO() {

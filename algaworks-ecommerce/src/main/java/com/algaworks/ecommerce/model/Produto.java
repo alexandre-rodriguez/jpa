@@ -14,6 +14,16 @@ import java.util.List;
 
 @Getter
 @Setter
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "produto_loja.listar",
+                query = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto from produto_loja",
+                resultClass = Produto.class
+        ),
+        @NamedNativeQuery(name = "ecm_produto.listar",
+                query = "select * from ecm_produto",
+                resultSetMapping = "ecm_produto.Produto"
+        )
+})
 @SqlResultSetMappings({
         @SqlResultSetMapping(name = "produto_loja.Produto",
                 entities = { @EntityResult( entityClass = Produto.class) }),
