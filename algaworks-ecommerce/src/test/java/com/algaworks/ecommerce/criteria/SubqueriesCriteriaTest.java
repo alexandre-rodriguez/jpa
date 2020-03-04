@@ -14,6 +14,33 @@ import java.util.List;
 public class SubqueriesCriteriaTest extends EntityManagerTest {
 
     @Test
+    public void pesquisarComAllExercicio() {
+        // Todos os produtos que sempre foram vendidos pelo mesmo preço.
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<ItemPedido> root = criteriaQuery.from(ItemPedido.class);
+
+        criteriaQuery.select(root.get(ItemPedido_.produto));
+        criteriaQuery.distinct(true);
+
+        Subquery<BigDecimal> subquery = criteriaQuery.subquery(BigDecimal.class);
+        Root<ItemPedido> subqueryRoot = subquery.from(ItemPedido.class);
+        subquery.select(subqueryRoot.get(ItemPedido_.precoProduto));
+        subquery.where(criteriaBuilder.equal(subqueryRoot.get(ItemPedido_.produto), root.get(ItemPedido_.produto)),
+                criteriaBuilder.notEqual(subqueryRoot, root));
+
+        criteriaQuery.where(criteriaBuilder.equal(root.get(ItemPedido_.precoProduto), criteriaBuilder.all(subquery)));
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+
+        lista.forEach(obj -> System.out.println("ID: " + obj.getId()));
+    }
+
+    @Test
     public void pesquisarComAny02() {
         // Todos os produtos que já foram vendidos por um preço diferente do atual
 
