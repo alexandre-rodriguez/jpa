@@ -1,6 +1,8 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.ItemPedido;
+import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 import org.junit.Test;
 
@@ -8,6 +10,31 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class ConsultaNativaTest extends EntityManagerTest {
+
+    @Test
+    public void usarSQLResultSetMapping02() {
+        String sql = "select ip.*, p.* from item_pedido ip join produto p on p.id = ip.produto_id";
+
+        Query query = entityManager.createNativeQuery(sql, "item_pedido-produto.ItemPedido-Produto");
+
+        List<Object[]> lista = query.getResultList();
+
+        lista.forEach(arr -> System.out.println(
+                String.format("Pedido => ID: %s --- Produto => ID: %s, Nome: %s",
+                        ((ItemPedido) arr[0]).getId().getPedidoId(),
+                        ((Produto) arr[1]).getId(),  ((Produto) arr[1]).getNome())));
+    }
+
+    @Test
+    public void usarSQLResultSetMapping01() {
+        String sql = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto from produto_loja";
+
+        Query query = entityManager.createNativeQuery(sql, "produto_loja.Produto");
+
+        List<Produto> lista = query.getResultList();
+
+        lista.forEach(obj -> System.out.println(String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
 
     @Test
     public void passarParametros() {
