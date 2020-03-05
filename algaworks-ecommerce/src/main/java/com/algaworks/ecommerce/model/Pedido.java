@@ -2,14 +2,8 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-import org.hibernate.engine.spi.PersistentAttributeInterceptable;
-import org.hibernate.engine.spi.PersistentAttributeInterceptor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -46,10 +40,11 @@ import java.util.List;
 @EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
 @Table(name = "pedido")
-public class Pedido extends EntidadeBaseInteger implements PersistentAttributeInterceptable {
+public class Pedido extends EntidadeBaseInteger { // implements PersistentAttributeInterceptable {
 
     @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    //@ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
@@ -67,9 +62,9 @@ public class Pedido extends EntidadeBaseInteger implements PersistentAttributeIn
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
-    //@OneToOne(mappedBy = "pedido")
+    //@LazyToOne(LazyToOneOption.NO_PROXY)
+    //@OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
     @NotNull
@@ -89,9 +84,9 @@ public class Pedido extends EntidadeBaseInteger implements PersistentAttributeIn
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    @LazyToOne(LazyToOneOption.NO_PROXY)
-    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
-    //@OneToOne(mappedBy = "pedido")
+    //@LazyToOne(LazyToOneOption.NO_PROXY)
+    //@OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
     public boolean isPago() {
@@ -142,6 +137,7 @@ public class Pedido extends EntidadeBaseInteger implements PersistentAttributeIn
         System.out.println("Após carregar o Pedido.");
     }
 
+    /*
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @Transient
@@ -186,5 +182,5 @@ public class Pedido extends EntidadeBaseInteger implements PersistentAttributeIn
             this.pagamento = pagamento;
         }
     }
-
+    */
 }
