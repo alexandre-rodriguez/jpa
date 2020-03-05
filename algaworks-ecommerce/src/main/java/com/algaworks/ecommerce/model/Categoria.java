@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Getter
@@ -15,6 +16,7 @@ import java.util.List;
         indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false)})
 public class Categoria extends EntidadeBaseInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false) // varchar(100) not null
     private String nome;
 

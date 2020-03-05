@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,8 @@ public class Cliente extends EntidadeBaseInteger {
     @Column(length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
-    @NotBlank
+    @NotNull
+    @Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)")
     @Column(length = 14, nullable = false) // varchar(14) not null
     private String cpf;
 

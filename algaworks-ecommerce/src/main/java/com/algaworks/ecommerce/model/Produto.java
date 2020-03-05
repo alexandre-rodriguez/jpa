@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,18 +66,23 @@ import java.util.List;
         indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false) })
 public class Produto extends EntidadeBaseInteger {
 
+    @PastOrPresent
+    @NotNull
     @Column(name = "data_criacao", updatable = false, nullable = false) // datetime(6) not null
     private LocalDateTime dataCriacao;
 
+    @PastOrPresent
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
+    @NotBlank
     @Column(name = "nome", length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
     @Lob // descricao longtext
     private String descricao;
 
+    @Positive
     @Column(precision = 10, scale = 2) // Parte inteira 8 digitos e Parte decimal 2 digitos -- decimal(10,2)
     private BigDecimal preco;
 

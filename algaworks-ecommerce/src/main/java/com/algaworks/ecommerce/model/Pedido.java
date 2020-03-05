@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,33 +22,42 @@ import java.util.List;
 @Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
+    @PastOrPresent
+    @NotNull
     @Column(name = "data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao; // datetime(6) not null
 
+    @PastOrPresent
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
+    @PastOrPresent
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
+    @NotNull
     @Column(length = 30, nullable = false) // varchar(30) not null
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
+    @NotNull
+    @Positive
     @Column(nullable = false) // decimal(19,2) not null
     private BigDecimal total;
 
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
+    @NotEmpty
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
