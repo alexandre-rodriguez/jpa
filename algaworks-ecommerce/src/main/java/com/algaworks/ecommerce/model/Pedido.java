@@ -2,9 +2,14 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.hibernate.engine.spi.PersistentAttributeInterceptable;
+import org.hibernate.engine.spi.PersistentAttributeInterceptor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -20,7 +25,7 @@ import java.util.List;
 @EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
 @Table(name = "pedido")
-public class Pedido extends EntidadeBaseInteger {
+public class Pedido extends EntidadeBaseInteger implements PersistentAttributeInterceptable {
 
     @NotNull
     @ManyToOne(optional = false)
@@ -41,7 +46,9 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
-    @OneToOne(mappedBy = "pedido")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+    //@OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
     @NotNull
@@ -61,7 +68,9 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    @OneToOne(mappedBy = "pedido")
+    @LazyToOne(LazyToOneOption.NO_PROXY)
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+    //@OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
     public boolean isPago() {
@@ -111,4 +120,50 @@ public class Pedido extends EntidadeBaseInteger {
     public void aoCarregar() {
         System.out.println("Após carregar o Pedido.");
     }
+
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    @Transient
+    private PersistentAttributeInterceptor persistentAttributeInterceptor;
+
+    @Override
+    public PersistentAttributeInterceptor $$_hibernate_getInterceptor() {
+        return this.persistentAttributeInterceptor;
+    }
+
+    @Override
+    public void $$_hibernate_setInterceptor(PersistentAttributeInterceptor interceptor) {
+        this.persistentAttributeInterceptor = interceptor;
+    }
+
+    public NotaFiscal getNotaFiscal() {
+        if (this.persistentAttributeInterceptor != null) {
+            return (NotaFiscal) persistentAttributeInterceptor.readObject(this, "notaFiscal", this.notaFiscal);
+        }
+        return this.notaFiscal;
+    }
+
+    public void setNotaFiscal(NotaFiscal notaFiscal) {
+        if (this.persistentAttributeInterceptor != null) {
+            this.notaFiscal = (NotaFiscal) persistentAttributeInterceptor.writeObject(this, "notaFiscal", this.notaFiscal, notaFiscal);
+        } else {
+            this.notaFiscal = notaFiscal;
+        }
+    }
+
+    public Pagamento getPagamento() {
+        if (this.persistentAttributeInterceptor != null) {
+            return (Pagamento) persistentAttributeInterceptor.readObject(this, "pagamento", this.pagamento);
+        }
+        return this.pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        if (this.persistentAttributeInterceptor != null) {
+            this.pagamento = (Pagamento) persistentAttributeInterceptor.writeObject(this, "pagamento", this.pagamento, pagamento);
+        } else {
+            this.pagamento = pagamento;
+        }
+    }
+
 }
