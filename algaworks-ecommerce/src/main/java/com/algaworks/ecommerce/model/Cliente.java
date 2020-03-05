@@ -1,11 +1,10 @@
 package com.algaworks.ecommerce.model;
 
-import lombok.Cleanup;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +26,11 @@ import java.util.Map;
         indexes = { @Index(name = "idx_nome", columnList = "nome", unique = false)})
 public class Cliente extends EntidadeBaseInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false) // varchar(100) not null
     private String nome;
 
+    @NotBlank
     @Column(length = 14, nullable = false) // varchar(14) not null
     private String cpf;
 
