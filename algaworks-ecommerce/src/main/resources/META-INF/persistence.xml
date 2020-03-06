@@ -29,6 +29,12 @@
             <!-- Sem JNDI - Fim -->
             <!-- https://github.com/brettwooldridge/HikariCP -->
 
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>
+            <property name="hibernate.javax.cache.provider"
+                      value="org.ehcache.jsr107.EhcacheCachingProvider"/>
+            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
+
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
             <property name="javax.persistence.schema-generation.create-source"
