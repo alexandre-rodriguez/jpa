@@ -55,6 +55,9 @@ public class CacheTest {
 
         esperar(3);
         Assert.assertFalse(cache.contains(Pedido.class, 2));
+
+        entityManager1.close();
+        entityManager2.close();
     }
 
     @Test
@@ -71,6 +74,7 @@ public class CacheTest {
                 .createQuery("select p from Pedido p", Pedido.class)
                 .setHint("javax.persistence.cache.storeMode", CacheStoreMode.USE)
                 .getResultList();
+        entityManager1.close();
 
         System.out.println("Buscando o pedido de ID igual a 2..............");
         EntityManager entityManager2 = entityManagerFactory.createEntityManager();
@@ -78,6 +82,7 @@ public class CacheTest {
         // propriedades.put("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
         // propriedades.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         entityManager2.find(Pedido.class, 2, propriedades);
+        entityManager2.close();
 
         System.out.println("Buscando todos os pedidos (de novo).....................");
         EntityManager entityManager3 = entityManagerFactory.createEntityManager();
@@ -85,6 +90,7 @@ public class CacheTest {
                 .createQuery("select p from Pedido p", Pedido.class)
 //                .setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS)
                 .getResultList();
+        entityManager3.close();
     }
 
     @Test
@@ -98,6 +104,8 @@ public class CacheTest {
                 .getResultList();
 
         Assert.assertTrue(cache.contains(Pedido.class, 1));
+
+        entityManager1.close();
     }
 
     @Test
@@ -112,6 +120,8 @@ public class CacheTest {
 
         Assert.assertTrue(cache.contains(Pedido.class, 1));
         Assert.assertTrue(cache.contains(Pedido.class, 2));
+
+        entityManager1.close();
     }
 
     @Test
@@ -133,6 +143,9 @@ public class CacheTest {
         System.out.println("Buscando a partir da instância 2:");
         entityManager2.find(Pedido.class, 1);
         entityManager2.find(Pedido.class, 2);
+
+        entityManager1.close();
+        entityManager2.close();
     }
 
     @Test
@@ -146,6 +159,9 @@ public class CacheTest {
 
         System.out.println("Buscando a partir da instância 2:");
         entityManager2.find(Pedido.class, 1);
+
+        entityManager1.close();
+        entityManager2.close();
     }
 
     @Test
@@ -158,5 +174,8 @@ public class CacheTest {
 
         System.out.println("Buscando a partir da instância 2:");
         entityManager2.find(Pedido.class, 1);
+
+        entityManager1.close();
+        entityManager2.close();
     }
 }
