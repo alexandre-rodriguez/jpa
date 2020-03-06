@@ -35,7 +35,7 @@
                       value="org.ehcache.jsr107.EhcacheCachingProvider"/>
             <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
 
-            <property name="javax.persistence.schema-generation.database.action" value="none"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
             <property name="javax.persistence.schema-generation.create-source"
                       value="metadata-then-script"/>
