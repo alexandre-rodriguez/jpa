@@ -12,6 +12,8 @@
         <mapping-file>META-INF/consultas/produto.xml</mapping-file>
         <mapping-file>META-INF/consultas/categoria.xml</mapping-file>
 
+        <shared-cache-mode>ALL</shared-cache-mode>
+
         <validation-mode>CALLBACK</validation-mode>
 
         <properties>
@@ -26,8 +28,6 @@
             <property name="hibernate.hikari.maximumPoolSize" value="16"/>
             <!-- Sem JNDI - Fim -->
             <!-- https://github.com/brettwooldridge/HikariCP -->
-
-            <property name="javax.persistence.sharedCache.mode" value="ALL"/>
 
             <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
