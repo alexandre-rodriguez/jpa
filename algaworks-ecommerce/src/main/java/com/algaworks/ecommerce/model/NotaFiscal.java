@@ -3,7 +3,6 @@ package com.algaworks.ecommerce.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +15,13 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "nota_fiscal")
-public class NotaFiscal extends EntidadeBaseInteger {
+public class NotaFiscal {
+
+    @Id
+    private Integer id;
+
+    @Version
+    private Integer versao;
 
     @NotNull
     @MapsId
@@ -32,7 +37,6 @@ public class NotaFiscal extends EntidadeBaseInteger {
     @NotEmpty
     @Column(nullable = false) //longblob not null
     @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] xml;
 
     @PastOrPresent

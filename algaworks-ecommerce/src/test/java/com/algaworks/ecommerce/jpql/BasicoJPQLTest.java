@@ -54,7 +54,7 @@ public class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
     public void projetarOResultado() {
-        String jpql = "select id, nome from Produto";
+        String jpql = "select p.id, p.nome from Produto p";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
         List<Object[]> lista = typedQuery.getResultList();
