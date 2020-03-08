@@ -1,14 +1,13 @@
 package com.algaworks.ecommerce.repository;
 
 import com.algaworks.ecommerce.model.Produto;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 import java.util.List;
 
-@Repository
-public class Produtos {
+public class Produtos implements Serializable {
 
     @PersistenceContext
     private EntityManager entityManager;
