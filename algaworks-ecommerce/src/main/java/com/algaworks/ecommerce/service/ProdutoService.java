@@ -19,7 +19,7 @@ public class ProdutoService {
 
     @Transactional
     public Produto criar(String tenant, Produto produto) {
-        produto.setTenant(tenant);
+         //produto.setTenant(tenant);
         produto.setDataCriacao(LocalDateTime.now());
 
         return produtos.salvar(produto);
