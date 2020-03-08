@@ -18,15 +18,16 @@ public class ProdutoService {
     private Produtos produtos;
 
     @Transactional
-    public Produto criar(Produto produto) {
+    public Produto criar(String tenant, Produto produto) {
+        produto.setTenant(tenant);
         produto.setDataCriacao(LocalDateTime.now());
 
         return produtos.salvar(produto);
     }
 
     @Transactional
-    public Produto atualizar(Integer id, Map<String, Object> produto) {
-        Produto produtoAtual = produtos.buscar(id);
+    public Produto atualizar(Integer id, String tenant, Map<String, Object> produto) {
+        Produto produtoAtual = produtos.buscar(id, tenant);
 
         try {
             BeanUtils.populate(produtoAtual, produto);

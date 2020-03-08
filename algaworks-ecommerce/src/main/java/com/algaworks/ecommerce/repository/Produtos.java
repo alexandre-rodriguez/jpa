@@ -13,17 +13,23 @@ public class Produtos {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Produto buscar(Integer id) {
-        return entityManager.find(Produto.class, id);
+    public Produto buscar(Integer id, String tenant) {
+        return entityManager.
+                createQuery("select p from Produto p where p.id = :id and p.tenant = :tenant",
+                        Produto.class)
+                .setParameter("id", id)
+                .setParameter("tenant", tenant)
+                .getSingleResult();
     }
 
     public Produto salvar(Produto produto) {
         return entityManager.merge(produto);
     }
 
-    public List<Produto> listar() {
+    public List<Produto> listar(String tenant) {
         return entityManager
-                .createQuery("select p from Produto p", Produto.class)
+                .createQuery("select p from Produto p where p.tenant = :tenant", Produto.class)
+                .setParameter("tenant", tenant)
                 .getResultList();
     }
 }

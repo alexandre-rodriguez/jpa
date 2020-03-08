@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -19,4 +20,7 @@ public class EntidadeBaseInteger {
 
     @Version
     private Integer versao;
+
+    @NotBlank
+    private String tenant;
 }
