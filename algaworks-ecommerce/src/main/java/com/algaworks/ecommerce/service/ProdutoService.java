@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -16,17 +17,16 @@ public class ProdutoService {
     @Autowired
     private Produtos produtos;
 
-    // @Transactional
-    public Produto criar(String tenant, Produto produto) {
-         //produto.setTenant(tenant);
+    @Transactional
+    public Produto criar(Produto produto) {
         produto.setDataCriacao(LocalDateTime.now());
 
         return produtos.salvar(produto);
     }
 
-    //@Transactional
-    public Produto atualizar(Integer id, String tenant, Map<String, Object> produto) {
-        Produto produtoAtual = produtos.buscar(id, tenant);
+    @Transactional
+    public Produto atualizar(Integer id, Map<String, Object> produto) {
+        Produto produtoAtual = produtos.buscar(id);
 
         try {
             BeanUtils.populate(produtoAtual, produto);
